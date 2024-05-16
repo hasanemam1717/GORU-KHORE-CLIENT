@@ -19,7 +19,7 @@ const PopularManu = () => {
         subHeading={"Check it out"}
         heading={"From our manu"}
       ></SectionTitle>
-      <div className="grid grid-cols-1 md:grid-cols-2 ">
+      <div className="grid grid-cols-1  md:grid-cols-2 ">
         {
             manu.map(item =><ManuItem key={item._id} item={item}></ManuItem>)
         }
