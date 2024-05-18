@@ -20,7 +20,7 @@ const Manu = () => {
   return (
     <div>
       <Helmet>
-        <title>GORU | manu</title>
+        <title>GORU || Menu</title>
       </Helmet>
       <Cover title={"OUR MENU"} img={manuImg}></Cover>
       {/* Main cover */}
