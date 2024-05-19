@@ -6,7 +6,7 @@ import Navber from "../Shared/NavBer.jsx/Navber";
 const Root = () => {
     const location = useLocation()
     // console.log(location);
-    const noHeraderFooter = location.pathname.includes("login")
+    const noHeraderFooter = location.pathname.includes("login") || location.pathname.includes("register")
     return (
         <div className="container mx-auto">
            { noHeraderFooter || <Navber></Navber>}
