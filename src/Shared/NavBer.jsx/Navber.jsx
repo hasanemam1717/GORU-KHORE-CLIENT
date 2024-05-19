@@ -12,6 +12,9 @@ const Navber = () => {
       <li>
         <Link to="/order/salad">Order</Link>
       </li>
+      <li>
+        <Link to="/login">LogIn</Link>
+      </li>
     </>
   );
   return (
@@ -46,9 +49,7 @@ const Navber = () => {
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          {navLinks}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{navLinks}</ul>
       </div>
       <div className="navbar-end">
         <a className="btn">Button</a>

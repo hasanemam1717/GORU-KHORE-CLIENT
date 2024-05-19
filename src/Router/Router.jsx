@@ -4,6 +4,7 @@ import Root from "../Layouts/Root";
 import Home from "../Pages/Home/Home/Home";
 import Manu from "../Pages/Home/Manu/Manu/Manu";
 import Order from "../Pages/Order/Order/Order";
+import LogIn from "../Pages/LogIn/LogIn";
 
 export const router = createBrowserRouter([
     {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
         {
           path: "order/:category",
           element:<Order></Order>
+        },
+        {
+          path:"/login",
+          element:<LogIn></LogIn>
         }
       ]
     },

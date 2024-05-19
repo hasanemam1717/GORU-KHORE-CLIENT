@@ -1,14 +1,17 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../Shared/Footer/Footer";
 import Navber from "../Shared/NavBer.jsx/Navber";
 
 
 const Root = () => {
+    const location = useLocation()
+    // console.log(location);
+    const noHeraderFooter = location.pathname.includes("login")
     return (
         <div className="container mx-auto">
-            <Navber></Navber>
+           { noHeraderFooter || <Navber></Navber>}
             <Outlet></Outlet>
-            <Footer></Footer>
+           { noHeraderFooter || <Footer></Footer>}
         </div>
     );
 };
