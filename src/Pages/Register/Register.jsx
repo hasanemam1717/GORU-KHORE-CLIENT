@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 
 const Register = () => {
@@ -9,16 +9,23 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm();
-  const { createUser } = useContext(AuthContext);
+  const { createUser ,updateUserProfile} = useContext(AuthContext);
+  const navigate = useNavigate()
   console.log(createUser);
 
   const onSubmit = (data) => {
     createUser(data.email, data.password).then((result) => {
       const user = result.user;
       console.log(user);
+      updateUserProfile(data.name,data.photoURL)
+      .then(()=>{console.log("User profile updated .");reset() }) 
+      .catch(error =>{console.log(error);})
+      navigate("/")
+
     });
-    // console.log(data);
+    console.log(data);
   };
   return (
     <>
@@ -43,9 +50,21 @@ const Register = () => {
                 </label>
                 <input
                   {...register("name")}
-                  type="name"
+                  type="text"
                   name="name"
                   placeholder="name"
+                  className="input input-bordered"
+                />
+              </div>      
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Photo URL</span>
+                </label>
+                <input
+                  {...register("photoURL")}
+                  type="text"
+                  name="photoURL"
+                  placeholder="photoURL"
                   className="input input-bordered"
                 />
               </div>

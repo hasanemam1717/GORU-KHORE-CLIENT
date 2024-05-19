@@ -22,6 +22,9 @@ const Navber = () => {
       </li>
       <li>
         <Link to="/order/salad">Order</Link>
+      </li>   
+      <li>
+        <Link to="/secret">Sectret</Link>
       </li>
      {user ?  <li>
         <Link onClick={handleLogOut} >LogOut</Link>

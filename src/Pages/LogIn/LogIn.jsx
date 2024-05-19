@@ -5,7 +5,7 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 import { AuthContext } from "../../Providers/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Swal from "sweetalert2";
 const LogIn = () => {
@@ -14,6 +14,9 @@ const LogIn = () => {
     loadCaptchaEnginge(6);
   }, []);
   const { signIn } = useContext(AuthContext);
+  const navigate = useNavigate()
+  const location = useLocation()
+  const form = location.state?.from?.pathname || "/";
   const handleLogIn = (e) => {
     e.preventDefault();
     const from = e.target;
@@ -39,6 +42,7 @@ const LogIn = () => {
           `,
         },
       });
+      navigate(form, { replace: true });
     });
     // console.log(email, password);
   };
