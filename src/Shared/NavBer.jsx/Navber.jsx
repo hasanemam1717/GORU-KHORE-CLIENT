@@ -1,36 +1,51 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
+import { MdOutlineShoppingCart } from "react-icons/md";
+import useCart from "../../Hooks/useCart";
 
 const Navber = () => {
-  const {user,logOut} = useContext(AuthContext)
-  console.log(user)
+  const [cart] = useCart();
+  const { user, logOut } = useContext(AuthContext);
+  console.log(user);
   const handleLogOut = () => {
     logOut()
-    .then(() => {})
-    .catch((err) => {
-       console.log(err);
-     });
-  }
+      .then(() => {})
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const navLinks = (
     <>
       <li>
         <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to="manu">Our Manu</Link>
+        <Link to="manu">Our Menu</Link>
       </li>
       <li>
         <Link to="/order/salad">Order</Link>
-      </li>   
+      </li>
       <li>
         <Link to="/secret">Sectret</Link>
       </li>
-     {user ?  <li>
-        <Link onClick={handleLogOut} >LogOut</Link>
-      </li> : <li>
-        <Link to="/login">LogIn</Link>
-      </li>}
+      <li>
+        <Link to='/dash/cart'>
+          <button className="flex">
+            <MdOutlineShoppingCart className="text-xl" />
+            <div className="badge badge-red">+{cart.length}</div>
+          </button>
+        </Link>
+      </li>
+      {user ? (
+        <li>
+          <Link onClick={handleLogOut}>LogOut</Link>
+        </li>
+      ) : (
+        <li>
+          <Link to="/login">LogIn</Link>
+        </li>
+      )}
     </>
   );
   return (

@@ -17,6 +17,7 @@ const LogIn = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const form = location.state?.from?.pathname || "/";
+  console.log('state  in the location' ,location.state);
   const handleLogIn = (e) => {
     e.preventDefault();
     const from = e.target;
