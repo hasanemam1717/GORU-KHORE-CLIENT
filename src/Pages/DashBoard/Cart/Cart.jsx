@@ -2,7 +2,7 @@ import useCart from "../../../Hooks/useCart";
 import TableRow from "./TableRow";
 
 const Cart = () => {
-  const [cart] = useCart();
+  const [cart,refetch] = useCart();
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
   return (
     <div>
@@ -12,24 +12,24 @@ const Cart = () => {
         <button className="btn btn-outline">Pay</button>
       </div>
       <div className="">
-        <table >
-          {/* head */}
-          <thead className="table">
-        <tr >
-          <th>Image</th>
-          <th>Price</th>
-          <th>Name</th>
-          <th></th>
-        </tr>
-      </thead>
-          <tbody >
-            {/* row 1 */}
-            {
-                cart.map( item => <TableRow key={item._id} item={item}></TableRow>)
-            }
-          
-          </tbody>
-        </table>
+        <div className="overflow-x-auto">
+          <table className="table table-zebra">
+            {/* head */}
+            <thead>
+              <tr className="bg-gray-200 rounded-xl font-bold text-xl text-orange-600">
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>#</th>
+              </tr>
+            </thead>
+          {
+            cart.map((item) => (
+              <TableRow key={item.id} refetch={refetch} item={item}></TableRow>
+            ))
+          }
+          </table>
+        </div>
       </div>
     </div>
   );
