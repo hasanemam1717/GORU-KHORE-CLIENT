@@ -8,16 +8,17 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Swal from "sweetalert2";
+import SocialLogIn from "../../Components/SocialLogIn/SocialLogIn";
 const LogIn = () => {
   const [disble, setDisble] = useState(true);
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
   const { signIn } = useContext(AuthContext);
-  const navigate = useNavigate()
-  const location = useLocation()
+  const navigate = useNavigate();
+  const location = useLocation();
   const form = location.state?.from?.pathname || "/";
-  console.log('state  in the location' ,location.state);
+  console.log("state  in the location", location.state);
   const handleLogIn = (e) => {
     e.preventDefault();
     const from = e.target;
@@ -130,6 +131,9 @@ const LogIn = () => {
                 Create a new account
               </Link>
             </h1>
+            <div className="mx-auto mb-3">
+              <SocialLogIn></SocialLogIn>
+            </div>
           </div>
         </div>
       </div>

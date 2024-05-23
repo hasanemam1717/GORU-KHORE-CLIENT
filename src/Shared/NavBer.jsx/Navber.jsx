@@ -30,7 +30,7 @@ const Navber = () => {
         <Link to="/secret">Sectret</Link>
       </li>
       <li>
-        <Link to='/dash/cart'>
+        <Link to='/dashboard/cart'>
           <button className="flex">
             <MdOutlineShoppingCart className="text-xl" />
             <div className="badge badge-red">+{cart.length}</div>

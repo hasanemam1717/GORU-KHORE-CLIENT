@@ -3,29 +3,52 @@ import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
+import useAxiosOpen from "../../Hooks/useAxiosOpen";
+import Swal from "sweetalert2";
+import SocialLogIn from "../../Components/SocialLogIn/SocialLogIn";
 
 const Register = () => {
+  const axiosOpen = useAxiosOpen();
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm();
-  const { createUser ,updateUserProfile} = useContext(AuthContext);
-  const navigate = useNavigate()
-  console.log(createUser);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
+  // console.log(createUser);
 
   const onSubmit = (data) => {
     createUser(data.email, data.password).then((result) => {
       const user = result.user;
       console.log(user);
-      updateUserProfile(data.name,data.photoURL)
-      .then(()=>{console.log("User profile updated .");reset() }) 
-      .catch(error =>{console.log(error);})
-      navigate("/")
-
+      updateUserProfile(data.name, data.photoURL)
+        .then(() => {
+          const userInfo = {
+            name: data.name,
+            email: data.email,
+          };
+          axiosOpen.post("/dataUsers", userInfo).then((res) => {
+            console.log(res);
+            if (res.data.insertedId) {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "User created successfully",
+                showConfirmButton: false,
+                timer: 1000,
+              });
+              reset();
+            }
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      navigate("/");
     });
-    console.log(data);
+    // console.log(data);
   };
   return (
     <>
@@ -55,7 +78,7 @@ const Register = () => {
                   placeholder="name"
                   className="input input-bordered"
                 />
-              </div>      
+              </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Photo URL</span>
@@ -101,12 +124,15 @@ const Register = () => {
                 />
               </div>
             </form>
-            <h1 className="text-center">
+            <h1 className="text-center p-3">
               <small>You have an account!</small>
               <Link className="text-blue-600" to="/login">
                 logIn
               </Link>
             </h1>
+            <div className="mx-auto mb-3">
+              <SocialLogIn></SocialLogIn>
+            </div>
           </div>
         </div>
       </div>
