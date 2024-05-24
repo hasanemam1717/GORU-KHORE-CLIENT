@@ -5,61 +5,57 @@ import Swal from "sweetalert2";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSequre();
-  const { data: users = [],refetch } = useQuery({
+  const { data: users = [], refetch } = useQuery({
     queryKey: ["allUsers"],
     queryFn: async () => {
-      const result = await axiosSecure.get("allUsers");
+      const result = await axiosSecure.get("allUsers",);
       return result.data;
     },
   });
 
- 
-
-
-  const handleDelete = user => {
+  const handleDelete = (user) => {
     Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          axiosSecure.delete(`/allUsers/${user._id}`)
-          .then((res) => {
-            console.log(res);
-            if (res.data.deletedCount > 0) {
-              refetch(),
-                Swal.fire({
-                  title: "Deleted!",
-                  text: "Your file has been deleted.",
-                  icon: "success",
-                });
-            }
-          });
-        }
-      });
-  }
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/allUsers/${user._id}`).then((res) => {
+          console.log(res);
+          if (res.data.deletedCount > 0) {
+            refetch(),
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+          }
+        });
+      }
+    });
+  };
 
-
-  const handleMakeAdmin = user => {
-    axiosSecure.patch(`/allUsers/admin/${user._id}`)
-   .then(res => {
-    console.log(res.data);
-    if (res.data.modifiedConunt > 0){
-        Swal.fire({
+  const handleMakeAdmin = (user) => {
+    // console.log(user.role);
+    axiosSecure.patch(`/allUsers/admin/${user._id}`).then((res) => {
+      console.log(res.data);
+      if (res.data.modifiedConunt > 0) {
+        refetch(),
+          Swal.fire({
             position: "center",
             icon: "success",
             title: "User name is admin now.",
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
           });
-          
-    }
-   })}
- 
+      }
+    });
+  };
+
   return (
     <div>
       <div>
@@ -86,24 +82,24 @@ const AllUsers = () => {
                     <th>{index + 1}</th>
                     <td>{user.name}</td>
                     <td>{user.email}</td>
-                    <td>
-                      {" "}
-                      { user.role === 'admin ' ? "Admin" :  <button
+                    <td className="font-semibold">
+                      {user.role === "admin" ? "Admin": 
+                        <button
                           onClick={() => handleMakeAdmin(user)}
-                        className="btn bg-white btn-outline"
-                      >
-                       <FaUsers></FaUsers>
-                      </button>}
+                          className="btn bg-white btn-outline"
+                        >
+                          <FaUsers></FaUsers>
+                        </button>
+                      }
                     </td>
                     <td>
-                      {" "}
                       <button
-                          onClick={() => handleDelete(user)}
+                        onClick={() => handleDelete(user)}
                         className="btn bg-red-600 text-white btn-outline"
                       >
                         <FaTrashAlt></FaTrashAlt>
                       </button>
-                    </td> 
+                    </td>
                   </tr>
                 ))}
                 {/* row 1 */}
