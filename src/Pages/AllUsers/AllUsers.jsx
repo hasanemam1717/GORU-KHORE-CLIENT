@@ -6,9 +6,9 @@ import Swal from "sweetalert2";
 const AllUsers = () => {
   const axiosSecure = useAxiosSequre();
   const { data: users = [], refetch } = useQuery({
-    queryKey: ["allUsers"],
+    queryKey: ["allusers"],
     queryFn: async () => {
-      const result = await axiosSecure.get("allUsers",);
+      const result = await axiosSecure.get("/allusers");
       return result.data;
     },
   });
@@ -24,7 +24,7 @@ const AllUsers = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/allUsers/${user._id}`).then((res) => {
+        axiosSecure.delete(`/allusers/${user._id}`).then((res) => {
           console.log(res);
           if (res.data.deletedCount > 0) {
             refetch(),

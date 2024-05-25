@@ -14,8 +14,7 @@ import { Link, Outlet } from "react-router-dom";
 import useAdmin from "../Hooks/useAdmin";
 
 const DashBoard = () => {
-  const [isAdmin] = useAdmin();
-
+  const isAdmin = useAdmin();
   return (
     <div className="flex">
       <div className="w-64 min-h-screen bg-orange-500">
