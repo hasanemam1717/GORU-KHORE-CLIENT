@@ -60,7 +60,7 @@ const AuthProvider = ({ children }) => {
       if (currentUser) {
         const userInfo = {email : currentUser.email}
         // get token
-        axiosPublic.post('/jwt',userInfo)
+        axiosPublic.post('jwt',userInfo)
         .then(res => {
           console.log(res.data);
           if(res.data){
