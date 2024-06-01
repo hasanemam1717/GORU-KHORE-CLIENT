@@ -12,8 +12,10 @@ import {
 } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
 import useAdmin from "../Hooks/useAdmin";
+import useCart from "../Hooks/useCart";
 
 const DashBoard = () => {
+  const [cart] = useCart();
   const isAdmin = useAdmin();
   return (
     <div className="flex">
@@ -40,6 +42,16 @@ const DashBoard = () => {
               <li>
                 <Link to="/dashboard/managebookings">
                   <FaBook></FaBook> Manage Bookings
+                </Link>
+              </li>
+              <li>
+                <Link to="/dashboard/cart">
+                  <FaShoppingCart></FaShoppingCart> My cart ({cart.length})
+                </Link>
+              </li>
+              <li>
+                <Link to="/paymentHistory">
+                  <FaShoppingCart></FaShoppingCart> Payment History
                 </Link>
               </li>
               <li>
